@@ -40,44 +40,6 @@ header p {
     font-size: 1.1em;
 }
 
-/* Export/Import Controls */
-.export-import-controls {
-    margin-top: 20px;
-    display: flex;
-    gap: 15px;
-    justify-content: center;
-}
-
-.control-btn {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    border: none;
-    padding: 12px 20px;
-    border-radius: 8px;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.control-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 15px rgba(102, 126, 234, 0.4);
-}
-
-.control-btn:active {
-    transform: translateY(0);
-}
-
-.control-btn:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-    transform: none;
-}
-
 /* A4 Paper Canvas */
 .paper-container {
     display: flex;
@@ -235,57 +197,6 @@ header p {
         padding: 12px;
         font-size: 12px;
     }
-    
-    .export-import-controls {
-        flex-direction: column;
-        gap: 10px;
-    }
-    
-    .control-btn {
-        width: 100%;
-        padding: 10px 15px;
-        font-size: 13px;
-    }
-}
-
-/* Temporary Messages */
-.temp-message {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    padding: 15px 20px;
-    border-radius: 8px;
-    color: white;
-    font-weight: 600;
-    z-index: 1000;
-    animation: fadeIn 0.3s ease-out;
-    max-width: 300px;
-    text-align: center;
-}
-
-.temp-message-success {
-    background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
-    box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
-}
-
-.temp-message-error {
-    background: linear-gradient(135deg, #f44336 0%, #da190b 100%);
-    box-shadow: 0 4px 15px rgba(244, 67, 54, 0.3);
-}
-
-.temp-message-info {
-    background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%);
-    box-shadow: 0 4px 15px rgba(33, 150, 243, 0.3);
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateX(100%); }
-    to { opacity: 1; transform: translateX(0); }
-}
-
-@keyframes fadeOut {
-    from { opacity: 1; transform: translateX(0); }
-    to { opacity: 0; transform: translateX(100%); }
 }
 
 @media (max-width: 480px) {

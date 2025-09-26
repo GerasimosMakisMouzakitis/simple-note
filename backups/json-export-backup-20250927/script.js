@@ -30,11 +30,6 @@ class StickyNotesApp {
         document.addEventListener('mousemove', (e) => this.handleMouseMove(e));
         document.addEventListener('mouseup', () => this.handleMouseUp());
         
-        // Export/Import events
-        document.getElementById('exportBtn').addEventListener('click', () => this.exportToJSON());
-        document.getElementById('importBtn').addEventListener('click', () => this.triggerImport());
-        document.getElementById('fileInput').addEventListener('change', (e) => this.handleFileImport(e));
-        
         // Prevent default drag behavior on images and other elements
         document.addEventListener('dragstart', (e) => e.preventDefault());
     }
@@ -62,8 +57,7 @@ class StickyNotesApp {
             id: noteId,
             x: x,
             y: y,
-            text: text,
-            timestamp: new Date().toISOString()
+            text: text
         };
         
         if (!id) {
@@ -291,159 +285,6 @@ class StickyNotesApp {
         });
     }
     
-    // Export all notes to JSON format
-    exportToJSON() {
-        try {
-            const exportData = {
-                metadata: {
-                    appVersion: "3.1.0",
-                    exportDate: new Date().toISOString(),
-                    noteCount: this.notes.length,
-                    formatVersion: "1.0"
-                },
-                notes: this.notes.map(note => ({
-                    id: note.id,
-                    text: note.text,
-                    x: note.x,
-                    y: note.y,
-                    timestamp: note.timestamp || new Date().toISOString()
-                }))
-            };
-            
-            const jsonString = JSON.stringify(exportData, null, 2);
-            const blob = new Blob([jsonString], { type: 'application/json' });
-            const url = URL.createObjectURL(blob);
-            
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `sticky-notes-${new Date().toISOString().split('T')[0]}.json`;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
-            
-            this.showMessage(`✅ Exported ${this.notes.length} notes successfully!`, 'success');
-        } catch (error) {
-            console.error('Export failed:', error);
-            this.showMessage('❌ Export failed. Please try again.', 'error');
-        }
-    }
-    
-    // Trigger file input for import
-    triggerImport() {
-        document.getElementById('fileInput').click();
-    }
-    
-    // Handle JSON file import
-    handleFileImport(event) {
-        const file = event.target.files[0];
-        if (!file) return;
-        
-        if (!file.name.endsWith('.json')) {
-            this.showMessage('❌ Please select a valid JSON file.', 'error');
-            return;
-        }
-        
-        const reader = new FileReader();
-        reader.onload = (e) => {
-            try {
-                const importData = JSON.parse(e.target.result);
-                this.importFromJSON(importData);
-            } catch (error) {
-                console.error('Import failed:', error);
-                this.showMessage('❌ Invalid JSON file format.', 'error');
-            }
-        };
-        reader.readAsText(file);
-        
-        // Reset file input
-        event.target.value = '';
-    }
-    
-    // Import notes from JSON data
-    importFromJSON(importData) {
-        try {
-            // Validate JSON structure
-            if (!importData.notes || !Array.isArray(importData.notes)) {
-                throw new Error('Invalid JSON structure: missing notes array');
-            }
-            
-            // Show confirmation dialog
-            const noteCount = importData.notes.length;
-            const currentCount = this.notes.length;
-            
-            if (!confirm(`Import ${noteCount} notes? This will replace your current ${currentCount} notes.`)) {
-                return;
-            }
-            
-            // Validate each note
-            const validNotes = importData.notes.filter(note => {
-                return note && 
-                       typeof note.text === 'string' && 
-                       typeof note.x === 'number' && 
-                       typeof note.y === 'number';
-            });
-            
-            if (validNotes.length === 0) {
-                this.showMessage('❌ No valid notes found in the file.', 'error');
-                return;
-            }
-            
-            // Clear existing notes and import new ones
-            this.notes = validNotes.map((note, index) => ({
-                id: this.noteIdCounter + index + 1,
-                text: note.text || 'Imported note',
-                x: Math.max(0, note.x),
-                y: Math.max(0, note.y),
-                timestamp: note.timestamp || new Date().toISOString()
-            }));
-            
-            // Update counter
-            this.noteIdCounter = Math.max(...this.notes.map(note => note.id));
-            
-            // Save and render
-            this.saveNotes();
-            this.renderNotes();
-            
-            const skipped = importData.notes.length - validNotes.length;
-            let message = `✅ Imported ${validNotes.length} notes successfully!`;
-            if (skipped > 0) {
-                message += ` (${skipped} invalid notes skipped)`;
-            }
-            
-            this.showMessage(message, 'success');
-            
-        } catch (error) {
-            console.error('Import failed:', error);
-            this.showMessage('❌ Import failed: ' + error.message, 'error');
-        }
-    }
-    
-    // Show temporary message to user
-    showMessage(text, type = 'info') {
-        // Remove existing message if any
-        const existingMessage = document.querySelector('.temp-message');
-        if (existingMessage) {
-            existingMessage.remove();
-        }
-        
-        // Create message element
-        const message = document.createElement('div');
-        message.className = `temp-message temp-message-${type}`;
-        message.textContent = text;
-        
-        // Add to page
-        document.body.appendChild(message);
-        
-        // Auto-remove after 3 seconds
-        setTimeout(() => {
-            if (message.parentNode) {
-                message.style.animation = 'fadeOut 0.3s ease-out forwards';
-                setTimeout(() => message.remove(), 300);
-            }
-        }, 3000);
-    }
-
     // Public method to clear all notes (for debugging/demo)
     clearAllNotes() {
         this.notes = [];
