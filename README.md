@@ -1,5 +1,7 @@
 # 📝 Simple Sticky Notes Web App
 
+**Version:** 1.1.0 | **Author:** GerasimosMakisMouzakitis | **License:** MIT
+
 A clean, intuitive web application that simulates an A4 paper with draggable yellow sticky notes. Perfect for quick note-taking, brainstorming, or organizing thoughts visually.
 
 ## ✨ Features
@@ -132,9 +134,13 @@ Change the A4 paper dimensions in `.a4-paper` class:
 - No tracking or analytics
 - Works completely offline
 
-## 📄 License
+## 📄 License & Credits
 
 This project is open source and available under the MIT License.
+
+**Author:** GerasimosMakisMouzakitis  
+**Repository:** https://github.com/GerasimosMakisMouzakitis/simple-note  
+**Version:** 1.1.0
 
 ---
 

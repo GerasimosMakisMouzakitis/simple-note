@@ -1,5 +1,11 @@
+// Simple Sticky Notes App v1.1.0
+// Author: GerasimosMakisMouzakitis
+// Repository: https://github.com/GerasimosMakisMouzakitis/simple-note
+
 class StickyNotesApp {
     constructor() {
+        this.appVersion = '1.1.0';
+        this.appAuthor = 'GerasimosMakisMouzakitis';
         this.canvas = document.getElementById('canvas');
         this.contextMenu = document.getElementById('contextMenu');
         this.notes = [];
@@ -296,7 +302,8 @@ class StickyNotesApp {
         try {
             const exportData = {
                 metadata: {
-                    appVersion: "3.1.0",
+                    appVersion: this.appVersion,
+                    appAuthor: this.appAuthor,
                     exportDate: new Date().toISOString(),
                     noteCount: this.notes.length,
                     formatVersion: "1.0"
@@ -457,7 +464,8 @@ document.addEventListener('DOMContentLoaded', () => {
     window.stickyNotesApp = new StickyNotesApp();
     
     // Add some helpful console commands
-    console.log('🎉 Sticky Notes App loaded!');
+    console.log('🎉 Simple Sticky Notes App v1.1.0 loaded!');
+    console.log('👨‍💻 Author: GerasimosMakisMouzakitis');
     console.log('💡 Try: stickyNotesApp.clearAllNotes() to clear all notes');
 });
 
