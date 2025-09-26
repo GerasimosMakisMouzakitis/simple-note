@@ -1,7 +1,7 @@
 # Project Development Rules
 
 **Project:** Simple Sticky Notes Web App  
-**Version:** 1.0  
+**Version:** 2.0  
 **Last Updated:** 2025-09-26  
 **Applies To:** All development work on Simple Sticky Notes
 

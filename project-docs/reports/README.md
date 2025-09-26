@@ -1,25 +1,25 @@
-# Reports & Analysis
+# Project Reports & Analysis
 
-**Purpose:** Analysis documents, comparisons, and technical assessments  
+**Purpose:** Analysis documents, comparisons, and assessments  
+**Naming Convention:** `[REPORT_TYPE]_[SUBJECT]_[DATE].md`  
 **Last Updated:** 2025-09-26
 
 ## 📊 **Report Categories**
 
-### **📁 naming-analysis/**
-- File organization and naming convention analysis
-- Conflict resolution documentation
-- Systematic naming improvement plans
+### **� naming-analysis/**
+- **Purpose:** File organization and naming convention analysis
+- **Contents:** Naming conflict resolution, convention improvements
+- **Naming:** `NAMING_CONVENTION_ANALYSIS_[DATE].md`
 
-### **📁 comparisons/**
-- Technical decision comparison reports
-- Alternative solution analysis
-- Technology and approach evaluations
+### **⚖️ comparisons/**  
+- **Purpose:** Technical decision analysis and alternative comparisons
+- **Contents:** Option analysis, recommendation reports, decision documentation
+- **Naming:** `COMPARISON_REPORT_[SUBJECT]_[DATE].md`
 
-### **📁 assessments/**
-- Performance assessments
-- Security evaluations
-- Code quality assessments
-- Project health reports
+### **� assessments/**
+- **Purpose:** Project health assessments and performance analysis
+- **Contents:** Quality assessments, performance reviews, metric analysis
+- **Naming:** `[ASSESSMENT_TYPE]_[SUBJECT]_[DATE].md`
 
 ## 📝 **Naming Convention for Reports**
 
