@@ -1,0 +1,4 @@
+Buile a single web page app.
+In the app there is a canvas area (like a paper page A4 vertical). I can click and add a yellow like sticker where I can type inside the sticker a note. I can see the sticker note in the canvas. I can edit the sticker note and I can drag the sticker note around the canvas. Think smart, easy app. 
+
+Write a plan first.

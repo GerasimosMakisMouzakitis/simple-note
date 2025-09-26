@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Sticky Notes</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <header>
+            <h1>📝 Simple Sticky Notes</h1>
+            <p>Click anywhere on the paper to add a sticky note</p>
+        </header>
+        
+        <div class="paper-container">
+            <div id="canvas" class="a4-paper">
+                <!-- Sticky notes will be dynamically added here -->
+            </div>
+        </div>
+        
+        <div class="instructions">
+            <ul>
+                <li><strong>Click</strong> anywhere on the paper to add a new note</li>
+                <li><strong>Double-click</strong> a note to edit its text</li>
+                <li><strong>Drag</strong> notes to move them around</li>
+                <li><strong>Right-click</strong> a note to delete it</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Context menu for delete option -->
+    <div id="contextMenu" class="context-menu">
+        <div class="context-item" id="deleteNote">🗑️ Delete Note</div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,237 @@
+/* Reset and base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.app-container {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    max-width: 900px;
+    width: 100%;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+header h1 {
+    color: #333;
+    margin-bottom: 10px;
+    font-size: 2.5em;
+}
+
+header p {
+    color: #666;
+    font-size: 1.1em;
+}
+
+/* A4 Paper Canvas */
+.paper-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.a4-paper {
+    width: 600px;
+    height: 848px; /* A4 ratio: 210mm x 297mm */
+    background: #fefefe;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    position: relative;
+    cursor: crosshair;
+    overflow: hidden;
+    background-image: 
+        linear-gradient(to right, #f0f0f0 1px, transparent 1px),
+        linear-gradient(to bottom, #f0f0f0 1px, transparent 1px);
+    background-size: 20px 20px;
+}
+
+/* Sticky Notes */
+.sticky-note {
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    background: linear-gradient(45deg, #ffeb3b, #fff176);
+    border: 1px solid #f9a825;
+    border-radius: 8px;
+    box-shadow: 
+        0 4px 8px rgba(0, 0, 0, 0.1),
+        0 2px 4px rgba(0, 0, 0, 0.06);
+    cursor: move;
+    padding: 15px;
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    font-size: 14px;
+    color: #333;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    word-wrap: break-word;
+    overflow: hidden;
+}
+
+.sticky-note:hover {
+    transform: rotate(1deg) scale(1.02);
+    box-shadow: 
+        0 8px 16px rgba(0, 0, 0, 0.15),
+        0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.sticky-note.dragging {
+    transform: rotate(5deg) scale(1.05);
+    box-shadow: 
+        0 12px 24px rgba(0, 0, 0, 0.2),
+        0 6px 12px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+}
+
+.sticky-note textarea {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    resize: none;
+    font-family: inherit;
+    font-size: inherit;
+    color: inherit;
+    word-wrap: break-word;
+}
+
+.sticky-note .note-text {
+    width: 100%;
+    height: 100%;
+    outline: none;
+    background: transparent;
+    border: none;
+    font-family: inherit;
+    font-size: inherit;
+    color: inherit;
+    word-wrap: break-word;
+    overflow-y: auto;
+}
+
+/* Context Menu */
+.context-menu {
+    position: fixed;
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    padding: 8px 0;
+    display: none;
+    z-index: 2000;
+    min-width: 120px;
+}
+
+.context-item {
+    padding: 10px 16px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #333;
+    transition: background-color 0.2s ease;
+}
+
+.context-item:hover {
+    background-color: #f5f5f5;
+}
+
+/* Instructions */
+.instructions {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 20px;
+    border-left: 4px solid #667eea;
+}
+
+.instructions ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.instructions li {
+    margin-bottom: 8px;
+    padding: 5px 0;
+    color: #555;
+}
+
+.instructions strong {
+    color: #333;
+    font-weight: 600;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .app-container {
+        padding: 20px;
+        margin: 10px;
+    }
+    
+    .a4-paper {
+        width: 100%;
+        max-width: 500px;
+        height: 707px; /* Maintain A4 ratio */
+    }
+    
+    header h1 {
+        font-size: 2em;
+    }
+    
+    .sticky-note {
+        width: 120px;
+        height: 120px;
+        padding: 12px;
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .a4-paper {
+        max-width: 400px;
+        height: 566px; /* Maintain A4 ratio */
+    }
+    
+    .sticky-note {
+        width: 100px;
+        height: 100px;
+        padding: 10px;
+        font-size: 11px;
+    }
+    
+    header h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Animation for new notes */
+.sticky-note.new-note {
+    animation: popIn 0.3s ease-out;
+}
+
+@keyframes popIn {
+    0% {
+        transform: scale(0) rotate(0deg);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1.1) rotate(2deg);
+    }
+    100% {
+        transform: scale(1) rotate(1deg);
+        opacity: 1;
+    }
+}
