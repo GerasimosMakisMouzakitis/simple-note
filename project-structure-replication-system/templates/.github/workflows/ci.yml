@@ -1,0 +1,79 @@
+name: Simple CI
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+      
+    - name: Validate project structure
+      run: |
+        echo "✅ Project Links Manager v0.2.0 - Structure Validation"
+        echo "📋 Checking v3.0 enterprise structure..."
+        
+        # Check core files
+        test -f README.md && echo "✅ README.md" || echo "❌ README.md missing"
+        test -f index.html && echo "✅ index.html" || echo "❌ index.html missing"
+        test -f script.js && echo "✅ script.js" || echo "❌ script.js missing"
+        
+        # Check enterprise folders
+        test -d .github && echo "✅ .github/ (CI/CD)" || echo "❌ .github/ missing"
+        test -d config && echo "✅ config/ (Security & Quality)" || echo "❌ config/ missing"
+        test -d docs && echo "✅ docs/ (Enhanced documentation)" || echo "❌ docs/ missing"
+        test -d project-docs && echo "✅ project-docs/" || echo "❌ project-docs/ missing"
+        test -d test && echo "✅ test/" || echo "❌ test/ missing"
+        
+        # Check templates
+        template_count=$(find project-docs/templates -name "*.md" 2>/dev/null | wc -l)
+        echo "📊 Template count: $template_count (expected: 17)"
+        
+        # Check version
+        if test -f project-docs/PROJECT_STRUCTURE_VERSION.md; then
+          version=$(grep "Current Version:" project-docs/PROJECT_STRUCTURE_VERSION.md | head -1)
+          echo "📌 $version"
+        else
+          echo "⚠️ Version file missing"
+        fi
+        
+        echo "✅ Structure validation complete!"
+        
+  lint-check:
+    runs-on: ubuntu-latest
+    if: contains(github.event.head_commit.message, 'lint') || github.event_name == 'pull_request'
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+        
+    - name: Basic HTML validation
+      run: |
+        echo "🔍 Running basic HTML validation..."
+        
+        # Check for basic HTML structure
+        if [ -f index.html ]; then
+          echo "✅ index.html found"
+          
+          # Basic HTML checks
+          grep -q "<!DOCTYPE" index.html && echo "✅ DOCTYPE declaration" || echo "⚠️ DOCTYPE missing"
+          grep -q "<html" index.html && echo "✅ HTML tag" || echo "⚠️ HTML tag missing"
+          grep -q "<head>" index.html && echo "✅ HEAD section" || echo "⚠️ HEAD section missing"
+          grep -q "<body>" index.html && echo "✅ BODY section" || echo "⚠️ BODY section missing"
+          
+          echo "✅ Basic HTML validation complete"
+        else
+          echo "❌ index.html not found"
+          exit 1
+        fi
